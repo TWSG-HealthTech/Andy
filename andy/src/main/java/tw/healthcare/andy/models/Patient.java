@@ -1,15 +1,19 @@
 package tw.healthcare.andy.models;
 
-/**
- * Created by yingzhang on 26/9/16.
- */
-
 public class Patient {
     private String id;
     private String name;
-    private String age;
+    private int age;
     private String gender;
     private VitalRecord vitals;
+
+    public Patient(String id, String name, int age, String gender, VitalRecord vitals) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.vitals = vitals;
+    }
 
     public String getId() {
         return id;
@@ -27,11 +31,11 @@ public class Patient {
         this.name = name;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
 

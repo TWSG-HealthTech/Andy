@@ -2,8 +2,8 @@ package tw.healthcare.andy.models;
 
 public class Nurse {
     private String id;
-    private String username;
-    private String password;
+    private String account;
+    private String name;
 
     public String getId() {
         return id;
@@ -13,28 +13,28 @@ public class Nurse {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getAccount() {
+        return account;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setAccount(String account) {
+        this.account = account;
     }
 
-    public String getPassword() {
-        return password;
+    public String getName() {
+        return name;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
         return "Nurse{" +
                 "id='" + id + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
+                ", account='" + account + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

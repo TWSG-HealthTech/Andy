@@ -1,7 +1,5 @@
 package tw.healthcare.andy.views;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.AsyncTask;

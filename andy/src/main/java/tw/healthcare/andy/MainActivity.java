@@ -5,9 +5,15 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 import tw.healthcare.andy.models.Nurse;
 import tw.healthcare.andy.models.Patient;
 import tw.healthcare.andy.models.VisitSchedule;
+import tw.healthcare.andy.models.VitalRecord;
 import tw.healthcare.andy.services.ScheduleRepository;
 import tw.healthcare.andy.views.HomeFragment;
 import tw.healthcare.andy.views.LoginFragment;
@@ -18,10 +24,18 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         PatientItemRecyclerViewAdapter.PatientItemViewListener,
         VitalRecordFragment.VitalRecordFragmentListener {
 
+    private ScheduleRepository repository;
+    private VisitSchedule schedule;
+    private Nurse nurse;
+    private Calendar today;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        repository = new ScheduleRepository(getApplicationContext());
+
         loadLoginView();
     }
 
@@ -32,7 +46,16 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
 
     @Override
     public void onLogin(Nurse nurse) {
-        VisitSchedule schedule = ScheduleRepository.getInstance().getSchedule(nurse);
+        this.nurse = nurse;
+        today = Calendar.getInstance();
+
+        if(repository.existSchedule(nurse.getId(), today)) {
+            schedule = repository.getSchedule(nurse.getId(), today);
+        } else {
+            schedule = createFakeSchedule(nurse);
+            repository.saveSchedule(nurse.getId(), today, schedule);
+        }
+
         loadHomeView(schedule);
     }
 
@@ -60,6 +83,25 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
 
     @Override
     public void onVitalRecordSaved() {
+        repository.saveSchedule(nurse.getId(), today, schedule);
         getSupportFragmentManager().popBackStack();
+    }
+
+    private VisitSchedule createFakeSchedule(Nurse nurse) {
+        VisitSchedule schedule = new VisitSchedule();
+        schedule.setScheduledDate(new Date());
+        schedule.setNurse(nurse);
+        schedule.setPatients(createFakePatients());
+        return schedule;
+    }
+
+    private List<Patient> createFakePatients() {
+        List<Patient> patients = new ArrayList<>();
+        patients.add(new Patient("1", "Jim", 56, "male", new VitalRecord()));
+        patients.add(new Patient("2", "Alice", 49, "female", new VitalRecord()));
+        patients.add(new Patient("3", "David", 75, "male", new VitalRecord()));
+        patients.add(new Patient("4", "Tommy", 63, "male", new VitalRecord()));
+        patients.add(new Patient("5", "Bob", 50, "male", new VitalRecord()));
+        return patients;
     }
 }

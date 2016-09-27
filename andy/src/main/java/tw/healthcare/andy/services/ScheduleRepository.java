@@ -1,44 +1,51 @@
 package tw.healthcare.andy.services;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import android.content.Context;
+import android.content.SharedPreferences;
 
-import tw.healthcare.andy.models.Nurse;
-import tw.healthcare.andy.models.Patient;
+import java.util.Calendar;
+
+import tw.healthcare.andy.R;
 import tw.healthcare.andy.models.VisitSchedule;
-import tw.healthcare.andy.models.VitalRecord;
+import tw.healthcare.andy.utils.JsonUtil;
 
 public class ScheduleRepository {
 
-    private static ScheduleRepository instance;
+    private SharedPreferences prefs;
 
-    private ScheduleRepository() {
-
+    public ScheduleRepository(Context context) {
+        String prefKey = context.getString(R.string.pref_file_name);
+        prefs = context.getSharedPreferences(prefKey, Context.MODE_PRIVATE);
     }
 
-    public static ScheduleRepository getInstance() {
-        if(instance == null) {
-            instance = new ScheduleRepository();
-        }
-        return instance;
+    public boolean existSchedule(String nurseId, Calendar date) {
+        return prefs.contains(getScheduleKey(nurseId, date));
     }
 
-    public VisitSchedule getSchedule(Nurse nurse) {
-        VisitSchedule schedule = new VisitSchedule();
-        schedule.setScheduledDate(new Date());
-        schedule.setNurse(nurse);
-        schedule.setPatients(createFakePatients());
-        return schedule;
+    public VisitSchedule getSchedule(String nurseId, Calendar date) {
+        return JsonUtil.deserialize(
+                prefs.getString(getScheduleKey(nurseId, date), null),
+                VisitSchedule.class
+        );
     }
 
-    private List<Patient> createFakePatients() {
-        List<Patient> patients = new ArrayList<>();
-        patients.add(new Patient("1", "Jim", 56, "male", new VitalRecord()));
-        patients.add(new Patient("2", "Alice", 49, "female", new VitalRecord()));
-        patients.add(new Patient("3", "David", 75, "male", new VitalRecord()));
-        patients.add(new Patient("4", "Tommy", 63, "male", new VitalRecord()));
-        patients.add(new Patient("5", "Bob", 50, "male", new VitalRecord()));
-        return patients;
+    public void saveSchedule(String nurseId, Calendar date, VisitSchedule schedule) {
+        prefs
+                .edit()
+                .putString(
+                        getScheduleKey(nurseId, date),
+                        JsonUtil.serialize(schedule)
+                ).apply();
     }
+
+    private String getScheduleKey(String id, Calendar date) {
+        return id +
+                "-" +
+                date.get(Calendar.YEAR) +
+                "-" +
+                date.get(Calendar.MONTH) +
+                "-" +
+                date.get(Calendar.DAY_OF_MONTH);
+    }
+
 }

@@ -10,6 +10,7 @@ public class VitalRecord {
     private String upperBloodPressure;
     private String lowerBloodPressure;
     private Date dateCreated;
+    private String patientId;
 
     public String getHeight() {
         return height;
@@ -65,6 +66,14 @@ public class VitalRecord {
 
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public String getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(String patientId) {
+        this.patientId = patientId;
     }
 
     @Override

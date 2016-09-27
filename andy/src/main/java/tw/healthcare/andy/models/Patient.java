@@ -7,6 +7,9 @@ public class Patient {
     private String gender;
     private VitalRecord vitals;
 
+    public Patient() {
+    }
+
     public Patient(String id, String name, int age, String gender, VitalRecord vitals) {
         this.id = id;
         this.name = name;

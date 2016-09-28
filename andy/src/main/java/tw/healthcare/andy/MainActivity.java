@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import tw.healthcare.andy.entities.VisitingSchedule;
 import tw.healthcare.andy.models.Nurse;
 import tw.healthcare.andy.models.Patient;
 import tw.healthcare.andy.models.VisitSchedule;
@@ -36,7 +37,33 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
 
         repository = new ScheduleRepository(getApplicationContext());
 
-        loadLoginView();
+        // loadLoginView();
+
+        loadNewHomeView();
+    }
+
+    private void loadNewHomeView() {
+        // prepare some fake data
+        tw.healthcare.andy.entities.Nurse nurse = new tw.healthcare.andy.entities.Nurse();
+        nurse.setName("Chansey");
+        nurse.save();
+
+        tw.healthcare.andy.entities.Patient patient = new tw.healthcare.andy.entities.Patient();
+        patient.setName("Andy");
+        patient.setGender("Male");
+        patient.save();
+
+        VisitingSchedule schedule = new VisitingSchedule();
+        schedule.setAppointmentDate(new Date());
+        schedule.setNurse(nurse);
+        schedule.setPatient(patient);
+        schedule.save();
+
+        // work on the real thing
+        tw.healthcare.andy.controllers.HomeFragment homeFragment = new tw.healthcare.andy.controllers.HomeFragment();
+        Bundle args = new tw.healthcare.andy.controllers.HomeFragment.BundleBuilder().nurseId(nurse.getId()).build();
+        homeFragment.setArguments(args);
+        getSupportFragmentManager().beginTransaction().add(R.id.main_container, homeFragment).commit();
     }
 
     private void loadLoginView() {

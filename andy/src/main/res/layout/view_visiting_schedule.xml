@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Wide.H">
+
+    <TextView
+        android:id="@+id/vs_patient"
+        style="@style/HeaderOneText" />
+</LinearLayout>

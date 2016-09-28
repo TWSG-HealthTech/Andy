@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ViewContainer">
+
+    <LinearLayout style="@style/Wide.H">
+
+        <TextView
+            android:id="@+id/vr_patient"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display3" />
+
+        <Button
+            android:id="@+id/vr_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/vr_save" />
+    </LinearLayout>
+
+    <ScrollView style="@style/Wide">
+
+        <LinearLayout style="@style/Wide">
+
+            <android.support.design.widget.TextInputLayout style="@style/TextInputLayout">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/vr_height"
+                    style="@style/TextInput.Decimal"
+                    android:hint="@string/vr_height" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout style="@style/TextInputLayout">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/vr_weight"
+                    style="@style/TextInput.Decimal"
+                    android:hint="@string/vr_weight" />
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

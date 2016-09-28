@@ -3,9 +3,11 @@ package tw.healthcare.andy.entities;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.util.Date;
+import java.util.List;
 
 @Table(database = AppDatabase.class, allFields = true)
 public class VisitingSchedule extends BaseModel {
@@ -67,5 +69,9 @@ public class VisitingSchedule extends BaseModel {
                 ", nurse=" + nurse +
                 ", patient=" + patient +
                 '}';
+    }
+
+    public static List<VisitingSchedule> findByNurseId(Long nurseId) {
+        return SQLite.select().from(VisitingSchedule.class).where(VisitingSchedule_Table.nurse_id.is(nurseId)).queryList();
     }
 }

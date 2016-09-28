@@ -26,5 +26,8 @@
     <string name="upperBloodPressure">Upper Blood Pressure</string>
     <string name="lowerBloodPressure">Lower Blood Pressure</string>
     <string name="pref_file_name">tw.healthcare.andy.prefs</string>
+    <string name="vr_height">Height (cm)</string>
+    <string name="vr_weight">Weight (kg)</string>
+    <string name="vr_save">Save</string>
 
 </resources>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/ViewContainer">
+
+    <LinearLayout style="@style/Wide">
+
+        <TextView
+            android:id="@+id/hm_nurse_name"
+            style="@style/HeaderThreeText" />
+
+        <LinearLayout style="@style/Wide.H">
+
+            <TextView
+                android:id="@+id/hm_schedule_date"
+                style="@style/HeaderOneText" />
+
+            <Button
+                android:id="@+id/hm_sync"
+                style="@style/Compact" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/hm_schedule_list"
+        style="@style/ListContainer"
+        app:layoutManager="LinearLayoutManager"
+        tools:listitem="@layout/view_visiting_schedule" />
+</LinearLayout>

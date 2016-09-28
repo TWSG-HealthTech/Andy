@@ -1,11 +1,16 @@
 package tw.healthcare.andy.entities;
 
+import android.util.Log;
+
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.raizlabs.android.dbflow.sql.language.Where;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.util.Date;
+import java.util.List;
 
 @Table(database = AppDatabase.class, allFields = true)
 public class VitalRecord extends BaseModel {
@@ -20,8 +25,7 @@ public class VitalRecord extends BaseModel {
     private Double temperature;
     private int bloodPressureHigh;
     private int bloodPressureLow;
-    private Date dateCreated;
-    private Date dateUpdated;
+    private Date dateMeasured;
 
     public Long getId() {
         return id;
@@ -95,20 +99,12 @@ public class VitalRecord extends BaseModel {
         this.bloodPressureLow = bloodPressureLow;
     }
 
-    public Date getDateCreated() {
-        return dateCreated;
+    public Date getDateMeasured() {
+        return dateMeasured;
     }
 
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    public Date getDateUpdated() {
-        return dateUpdated;
-    }
-
-    public void setDateUpdated(Date dateUpdated) {
-        this.dateUpdated = dateUpdated;
+    public void setDateMeasured(Date dateMeasured) {
+        this.dateMeasured = dateMeasured;
     }
 
     @Override
@@ -123,8 +119,17 @@ public class VitalRecord extends BaseModel {
                 ", temperature=" + temperature +
                 ", bloodPressureHigh=" + bloodPressureHigh +
                 ", bloodPressureLow=" + bloodPressureLow +
-                ", dateCreated=" + dateCreated +
-                ", dateUpdated=" + dateUpdated +
+                ", dateMeasured=" + dateMeasured +
                 '}';
+    }
+
+    public static VitalRecord findByPatientIdAndDateMeasured(Long patientId, Date dateMeasured) {
+        Date dayStart = new Date(dateMeasured.getYear(), dateMeasured.getMonth(), dateMeasured.getDate(), 0, 0, 0);
+        Date dayEnd = new Date(dateMeasured.getYear(), dateMeasured.getMonth(), dateMeasured.getDate(), 23, 59, 59);
+
+        return SQLite.select().from(VitalRecord.class)
+                .where(VitalRecord_Table.patient_id.is(patientId))
+                .and(VitalRecord_Table.dateMeasured.between(dayStart).and(dayEnd))
+                .querySingle();
     }
 }

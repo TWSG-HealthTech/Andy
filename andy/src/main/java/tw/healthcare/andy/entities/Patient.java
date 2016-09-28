@@ -2,6 +2,7 @@ package tw.healthcare.andy.entities;
 
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.util.Date;
@@ -64,5 +65,12 @@ public class Patient extends BaseModel {
                 ", dob=" + dob +
                 ", gender='" + gender + '\'' +
                 '}';
+    }
+
+    public static Patient findById(Long patientId) {
+        return SQLite.select()
+                .from(Patient.class)
+                .where(Patient_Table.id.is(patientId))
+                .querySingle();
     }
 }

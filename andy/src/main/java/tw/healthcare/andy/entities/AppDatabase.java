@@ -1,4 +1,4 @@
-package tw.healthcare.andy.models;
+package tw.healthcare.andy.entities;
 
 import com.raizlabs.android.dbflow.annotation.Database;
 

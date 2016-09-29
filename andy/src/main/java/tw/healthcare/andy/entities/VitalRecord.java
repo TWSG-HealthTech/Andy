@@ -1,12 +1,9 @@
 package tw.healthcare.andy.entities;
 
-import android.util.Log;
-
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
-import com.raizlabs.android.dbflow.sql.language.Where;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.util.Date;
@@ -26,6 +23,7 @@ public class VitalRecord extends BaseModel {
     private int bloodPressureHigh;
     private int bloodPressureLow;
     private Date dateMeasured;
+    private Boolean modified;
 
     public Long getId() {
         return id;
@@ -107,6 +105,14 @@ public class VitalRecord extends BaseModel {
         this.dateMeasured = dateMeasured;
     }
 
+    public Boolean isModified() {
+        return modified;
+    }
+
+    public void setModified(Boolean modified) {
+        this.modified = modified;
+    }
+
     @Override
     public String toString() {
         return "VitalRecord{" +
@@ -120,6 +126,7 @@ public class VitalRecord extends BaseModel {
                 ", bloodPressureHigh=" + bloodPressureHigh +
                 ", bloodPressureLow=" + bloodPressureLow +
                 ", dateMeasured=" + dateMeasured +
+                ", modified=" + modified +
                 '}';
     }
 
@@ -128,8 +135,24 @@ public class VitalRecord extends BaseModel {
         Date dayEnd = new Date(dateMeasured.getYear(), dateMeasured.getMonth(), dateMeasured.getDate(), 23, 59, 59);
 
         return SQLite.select().from(VitalRecord.class)
-                .where(VitalRecord_Table.patient_id.is(patientId))
+                .leftOuterJoin(Patient.class)
+                .on(VitalRecord_Table.patient_id.withTable().eq(Patient_Table.id.withTable()))
+                .where(Patient_Table.externalId.withTable().is(patientId))
                 .and(VitalRecord_Table.dateMeasured.between(dayStart).and(dayEnd))
                 .querySingle();
+    }
+
+    public static List<VitalRecord> findAllNewRecords() {
+        return SQLite.select().from(VitalRecord.class)
+                .where(VitalRecord_Table.modified.is(true))
+                .queryList();
+    }
+
+    public static void removeAll() {
+        SQLite.delete(VitalRecord.class).execute();
+    }
+
+    public static List<VitalRecord> findAll() {
+        return SQLite.select().from(VitalRecord.class).queryList();
     }
 }

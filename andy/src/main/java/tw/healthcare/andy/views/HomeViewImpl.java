@@ -12,6 +12,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import tw.healthcare.andy.R;
 import tw.healthcare.andy.entities.Nurse;
 import tw.healthcare.andy.entities.VisitingSchedule;
@@ -60,6 +61,13 @@ public class HomeViewImpl extends RecyclerView.Adapter<VisitingScheduleView> imp
     @Override
     public void setHomeViewListener(HomeViewListener listener) {
         this.listener = listener;
+    }
+
+    @OnClick(R.id.hm_sync)
+    public void onClickSyncButton() {
+        if(listener != null) {
+            listener.onSyncData();
+        }
     }
 
     // implementation of Adapter

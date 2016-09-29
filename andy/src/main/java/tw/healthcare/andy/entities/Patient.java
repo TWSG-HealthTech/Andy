@@ -6,6 +6,7 @@ import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.util.Date;
+import java.util.List;
 
 @Table(database = AppDatabase.class, allFields = true)
 public class Patient extends BaseModel {
@@ -70,7 +71,15 @@ public class Patient extends BaseModel {
     public static Patient findById(Long patientId) {
         return SQLite.select()
                 .from(Patient.class)
-                .where(Patient_Table.id.is(patientId))
+                .where(Patient_Table.externalId.is(patientId))
                 .querySingle();
+    }
+
+    public static void removeAll() {
+        SQLite.delete(Patient.class).execute();
+    }
+
+    public static List<Patient> findAll() {
+        return SQLite.select().from(Patient.class).queryList();
     }
 }

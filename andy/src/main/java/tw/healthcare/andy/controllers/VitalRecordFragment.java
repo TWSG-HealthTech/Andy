@@ -80,6 +80,7 @@ public class VitalRecordFragment extends Fragment implements VitalRecordView.Vit
     @Override
     public void onSaveVitalRecord(VitalRecord record) {
         record.setDateMeasured(new Date());
+        record.setModified(true);
         record.save();
         ToastUtil.showToast(getContext(), "Vital Record saved!");
         getFragmentManager().popBackStack();

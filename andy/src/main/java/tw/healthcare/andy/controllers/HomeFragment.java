@@ -15,6 +15,7 @@ import java.util.List;
 import tw.healthcare.andy.R;
 import tw.healthcare.andy.entities.VisitingSchedule;
 import tw.healthcare.andy.entities.Nurse;
+import tw.healthcare.andy.services.DataSyncTask;
 import tw.healthcare.andy.utils.ToastUtil;
 import tw.healthcare.andy.views.HomeView;
 import tw.healthcare.andy.views.HomeViewImpl;
@@ -37,6 +38,10 @@ public class HomeFragment extends Fragment implements HomeView.HomeViewListener 
     public void onStart() {
         super.onStart();
 
+        updateView();
+    }
+
+    private void updateView() {
         try {
             Long nurseId = getNurseId();
             Nurse nurse = Nurse.findById(nurseId);
@@ -61,14 +66,26 @@ public class HomeFragment extends Fragment implements HomeView.HomeViewListener 
 
     @Override
     public void onSyncData() {
-        ToastUtil.showToast(getContext(), "Data sync is done!");
+        new DataSyncTask(new DataSyncTask.DataSyncTaskListener() {
+            @Override
+            public void onSyncSuccessful() {
+                ToastUtil.showToast(getContext(), "Data sync is done!");
+                updateView();
+            }
+
+            @Override
+            public void onSyncFailed(Exception e) {
+                ToastUtil.showToast(getContext(), "Data sync failed!");
+                Log.e(getClass().getName(), e.getMessage(), e);
+            }
+        }).execute((Void)null);
     }
 
     @Override
     public void onClickSchedule(VisitingSchedule schedule) {
         VitalRecordFragment fragment = new VitalRecordFragment();
         Bundle args = new VitalRecordFragment.BundleBuilder()
-                .patientId(schedule.getPatient().getId())
+                .patientId(schedule.getPatient().getExternalId())
                 .dateMeasured(new Date())
                 .build();
         fragment.setArguments(args);

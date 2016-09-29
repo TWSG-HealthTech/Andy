@@ -5,6 +5,8 @@ import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
+import java.util.List;
+
 @Table(database = AppDatabase.class, allFields = true)
 public class Nurse extends BaseModel {
     @PrimaryKey(autoincrement = true)
@@ -56,6 +58,14 @@ public class Nurse extends BaseModel {
     }
 
     public static Nurse findById(Long nurseId) {
-        return SQLite.select().from(Nurse.class).where(Nurse_Table.id.is(nurseId)).querySingle();
+        return SQLite.select().from(Nurse.class).where(Nurse_Table.externalId.is(nurseId)).querySingle();
+    }
+
+    public static void removeAll() {
+        SQLite.delete(Nurse.class).execute();
+    }
+
+    public static List<Nurse> findAll() {
+        return SQLite.select().from(Nurse.class).queryList();
     }
 }

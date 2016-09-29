@@ -29,5 +29,6 @@
     <string name="vr_height">Height (cm)</string>
     <string name="vr_weight">Weight (kg)</string>
     <string name="vr_save">Save</string>
+    <string name="sample">Sample Text</string>
 
 </resources>

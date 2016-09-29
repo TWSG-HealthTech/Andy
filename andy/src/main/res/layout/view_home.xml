@@ -14,11 +14,13 @@
 
             <TextView
                 android:id="@+id/hm_schedule_date"
-                style="@style/HeaderOneText" />
+                style="@style/HeaderOneText"
+                android:layout_weight="1" />
 
             <Button
                 android:id="@+id/hm_sync"
-                style="@style/Compact" />
+                style="@style/Compact"
+                android:text="@string/action_sync"/>
         </LinearLayout>
     </LinearLayout>
 

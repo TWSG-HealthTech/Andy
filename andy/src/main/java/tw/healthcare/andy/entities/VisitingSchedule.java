@@ -72,6 +72,19 @@ public class VisitingSchedule extends BaseModel {
     }
 
     public static List<VisitingSchedule> findByNurseId(Long nurseId) {
-        return SQLite.select().from(VisitingSchedule.class).where(VisitingSchedule_Table.nurse_id.is(nurseId)).queryList();
+        return SQLite.select()
+                .from(VisitingSchedule.class)
+                .leftOuterJoin(Nurse.class)
+                .on(VisitingSchedule_Table.nurse_id.withTable().eq(Nurse_Table.id.withTable()))
+                .where(Nurse_Table.externalId.withTable().is(nurseId))
+                .queryList();
+    }
+
+    public static void removeAll() {
+        SQLite.delete(VisitingSchedule.class).execute();
+    }
+
+    public static List<VisitingSchedule> findAll() {
+        return SQLite.select().from(VisitingSchedule.class).queryList();
     }
 }

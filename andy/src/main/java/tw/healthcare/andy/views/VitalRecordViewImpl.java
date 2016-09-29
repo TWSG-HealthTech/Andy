@@ -25,6 +25,14 @@ public class VitalRecordViewImpl implements VitalRecordView {
     EditText heightText;
     @BindView(R.id.vr_weight)
     EditText weightText;
+    @BindView(R.id.vr_temperature)
+    EditText temperatureText;
+    @BindView(R.id.vr_pulse)
+    EditText pulseText;
+    @BindView(R.id.vr_blood_pressure_high)
+    EditText bpHighText;
+    @BindView(R.id.vr_blood_pressure_low)
+    EditText bpLowText;
 
     public VitalRecordViewImpl(LayoutInflater inflater, ViewGroup container) {
         rootView = inflater.inflate(R.layout.view_vital_record, container, false);
@@ -46,6 +54,10 @@ public class VitalRecordViewImpl implements VitalRecordView {
         patientNameView.setText(record.getPatient().getName());
         heightText.setText(DataConverter.toTwoDecimalPlacesString(record.getHeight()));
         weightText.setText(DataConverter.toTwoDecimalPlacesString(record.getWeight()));
+        pulseText.setText(DataConverter.toString(record.getPulse()));
+        temperatureText.setText(DataConverter.toTwoDecimalPlacesString(record.getTemperature()));
+        bpLowText.setText(DataConverter.toString(record.getBloodPressureLow()));
+        bpHighText.setText(DataConverter.toString(record.getBloodPressureHigh()));
     }
 
     @Override
@@ -65,6 +77,10 @@ public class VitalRecordViewImpl implements VitalRecordView {
         if(record != null) {
             record.setHeight(DataConverter.toDouble(heightText.getText().toString()));
             record.setWeight(DataConverter.toDouble(weightText.getText().toString()));
+            record.setPulse(DataConverter.toInteger(pulseText.getText().toString()));
+            record.setTemperature(DataConverter.toDouble(temperatureText.getText().toString()));
+            record.setBloodPressureHigh(DataConverter.toInteger(bpHighText.getText().toString()));
+            record.setBloodPressureLow(DataConverter.toInteger(bpLowText.getText().toString()));
         }
     }
 

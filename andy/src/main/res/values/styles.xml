@@ -71,6 +71,10 @@
         <item name="android:inputType">numberDecimal</item>
     </style>
 
+    <style name="TextInput.Number">
+        <item name="android:inputType">number</item>
+    </style>
+
     <style name="HeaderThreeText" parent="Wide">
         <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Display3</item>
     </style>

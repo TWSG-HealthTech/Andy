@@ -40,6 +40,38 @@
                     android:hint="@string/vr_weight" />
             </android.support.design.widget.TextInputLayout>
 
+            <android.support.design.widget.TextInputLayout style="@style/TextInputLayout">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/vr_pulse"
+                    style="@style/TextInput.Number"
+                    android:hint="@string/vr_pulse" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout style="@style/TextInputLayout">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/vr_temperature"
+                    style="@style/TextInput.Decimal"
+                    android:hint="@string/vr_temperature" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout style="@style/TextInputLayout">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/vr_blood_pressure_high"
+                    style="@style/TextInput.Number"
+                    android:hint="@string/vr_blood_pressure_high" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout style="@style/TextInputLayout">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/vr_blood_pressure_low"
+                    style="@style/TextInput.Number"
+                    android:hint="@string/vr_blood_pressure_low" />
+            </android.support.design.widget.TextInputLayout>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

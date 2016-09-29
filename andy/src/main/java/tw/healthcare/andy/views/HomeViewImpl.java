@@ -49,6 +49,7 @@ public class HomeViewImpl extends RecyclerView.Adapter<VisitingScheduleView> imp
     @Override
     public void showSchedulesOfNurse(Collection<VisitingSchedule> schedules, Nurse nurse) {
         this.nurse = nurse;
+        this.schedules.clear();
         this.schedules.addAll(schedules);
         updateUI();
     }

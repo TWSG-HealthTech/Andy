@@ -30,5 +30,9 @@
     <string name="vr_weight">Weight (kg)</string>
     <string name="vr_save">Save</string>
     <string name="sample">Sample Text</string>
+    <string name="vr_pulse">Pulse (per minute)</string>
+    <string name="vr_temperature">Temperature (°C)</string>
+    <string name="vr_blood_pressure_high">BP High</string>
+    <string name="vr_blood_pressure_low">BP Low</string>
 
 </resources>

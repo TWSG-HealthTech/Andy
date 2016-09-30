@@ -81,13 +81,9 @@ public class DataSyncTask extends AsyncTask<Void, Void, Boolean> {
 
     private void resetDB() {
         VitalRecord.removeAll();
-        Log.i(getClass().getName(), "VitalRecords: " + VitalRecord.findAll().size());
         VisitingSchedule.removeAll();
-        Log.i(getClass().getName(), "VisitingSchedule: " + VisitingSchedule.findAll().size());
         Patient.removeAll();
-        Log.i(getClass().getName(), "Patient: " + Patient.findAll().size());
         Nurse.removeAll();
-        Log.i(getClass().getName(), "Nurse: " + Nurse.findAll().size());
     }
 
     private void populateDB() {

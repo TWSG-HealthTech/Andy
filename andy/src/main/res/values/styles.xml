@@ -82,4 +82,5 @@
     <style name="HeaderOneText" parent="Wide">
         <item name="android:textAppearance">@style/Base.TextAppearance.AppCompat.Display1</item>
     </style>
+
 </resources>

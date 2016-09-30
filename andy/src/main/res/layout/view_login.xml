@@ -10,7 +10,7 @@
         android:layout_marginBottom="8dp"
         android:visibility="gone" />
 
-    <ScrollView style="@style/Full" android:id="@id/login_form">
+    <ScrollView style="@style/Full" android:id="@+id/login_form">
 
         <LinearLayout style="@style/Wide">
 

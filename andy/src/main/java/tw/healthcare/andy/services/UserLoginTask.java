@@ -25,8 +25,8 @@ public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
         try {
             ChanseyEndpoints endpoints = EndpointFactory.getChanseyEndpoints();
             List<NurseDto> allNurses = endpoints.getAllNurses().execute().body();
-            for(NurseDto dto : allNurses) {
-                if(dto.getEmail().equals(email)) {
+            for (NurseDto dto : allNurses) {
+                if (dto.getEmail().equals(email)) {
                     loginedUserId = dto.getId();
                     return true;
                 }
@@ -41,7 +41,7 @@ public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
     @Override
     protected void onPostExecute(Boolean successful) {
-        if(successful) {
+        if (successful) {
             listener.onLoginSuccessful(loginedUserId);
         } else {
             listener.onLoginFailure(error);
@@ -50,6 +50,7 @@ public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
     public interface UserLoginTaskListener {
         void onLoginSuccessful(Long userId);
+
         void onLoginFailure(String error);
     }
 }

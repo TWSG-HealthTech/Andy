@@ -2,7 +2,7 @@ package tw.healthcare.andy.utils;
 
 public class DataConverter {
     public static String toTwoDecimalPlacesString(Double number) {
-        if(number == null) {
+        if (number == null) {
             return "";
         } else {
             return String.format("%1$.2f", number);

@@ -51,7 +51,7 @@ public class VitalRecordFragment extends Fragment implements VitalRecordView.Vit
 
     private VitalRecord createVitalRecord(Long patientId) {
         Patient patient = Patient.findById(patientId);
-        if(patient == null) {
+        if (patient == null) {
             throw new RuntimeException("No patient with ID " + patientId);
         }
         VitalRecord record = new VitalRecord();

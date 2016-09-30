@@ -35,7 +35,7 @@ public class LoginFragment extends Fragment implements LoginView.LoginViewListen
     @Override
     public void onLoginSuccessful(Long userId) {
         Setting.putLong(Setting.CURRENT_USER, userId);
-        new DataSyncTask(this).execute((Void)null);
+        new DataSyncTask(this).execute((Void) null);
     }
 
     private void loadHomeView() {

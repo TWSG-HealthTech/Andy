@@ -13,8 +13,8 @@ import java.util.Date;
 import java.util.List;
 
 import tw.healthcare.andy.R;
-import tw.healthcare.andy.entities.VisitingSchedule;
 import tw.healthcare.andy.entities.Nurse;
+import tw.healthcare.andy.entities.VisitingSchedule;
 import tw.healthcare.andy.services.DataSyncTask;
 import tw.healthcare.andy.utils.ToastUtil;
 import tw.healthcare.andy.views.HomeView;
@@ -78,7 +78,7 @@ public class HomeFragment extends Fragment implements HomeView.HomeViewListener 
                 ToastUtil.showToast(getContext(), "Data sync failed!");
                 Log.e(getClass().getName(), e.getMessage(), e);
             }
-        }).execute((Void)null);
+        }).execute((Void) null);
     }
 
     @Override

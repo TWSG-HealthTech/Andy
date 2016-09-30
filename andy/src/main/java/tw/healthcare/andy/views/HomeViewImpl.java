@@ -66,7 +66,7 @@ public class HomeViewImpl extends RecyclerView.Adapter<VisitingScheduleView> imp
 
     @OnClick(R.id.hm_sync)
     public void onClickSyncButton() {
-        if(listener != null) {
+        if (listener != null) {
             listener.onSyncData();
         }
     }

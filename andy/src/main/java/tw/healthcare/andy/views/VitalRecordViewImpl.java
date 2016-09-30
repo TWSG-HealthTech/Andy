@@ -68,13 +68,13 @@ public class VitalRecordViewImpl implements VitalRecordView {
     @OnClick(R.id.vr_save)
     public void onSaveVitalRecord() {
         updateState();
-        if(listener != null && record != null) {
+        if (listener != null && record != null) {
             listener.onSaveVitalRecord(record);
         }
     }
 
     private void updateState() {
-        if(record != null) {
+        if (record != null) {
             record.setHeight(DataConverter.toDouble(heightText.getText().toString()));
             record.setWeight(DataConverter.toDouble(weightText.getText().toString()));
             record.setPulse(DataConverter.toInteger(pulseText.getText().toString()));

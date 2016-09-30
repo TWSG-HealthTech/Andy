@@ -54,7 +54,7 @@ public class LoginViewImpl implements LoginView {
 
     @OnClick(R.id.sign_in_button)
     public void onLogin() {
-        if(listener != null) {
+        if (listener != null) {
             showProgress(true);
             listener.onLogin(emailView.getText().toString(), passwordView.getText().toString());
         }
